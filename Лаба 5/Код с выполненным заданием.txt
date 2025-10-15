@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+
+public class proekt
+{
+   
+    static int CountEdges(int[,] G)
+    {
+        int count = 0;
+        int size = G.GetLength(0);
+
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                
+                if (G[i, j] == 1)
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    
+    static int[,] BuildIncidenceMatrix(int[,] adjacencyMatrix)
+    {
+        int vertices = adjacencyMatrix.GetLength(0);
+        int edges = CountEdges(adjacencyMatrix);
+        int[,] incidenceMatrix = new int[vertices, edges];
+
+        int edgeIndex = 0;
+
+        for (int i = 0; i < vertices; i++)
+        {
+            for (int j = 0; j < vertices; j++)
+            {
+                if (adjacencyMatrix[i, j] == 1)
+                {
+                    
+                    incidenceMatrix[i, edgeIndex] = 1;    
+                    incidenceMatrix[j, edgeIndex] = -1;   
+                    edgeIndex++;
+                }
+            }
+        }
+
+        return incidenceMatrix;
+    }
+
+    
+
+    static void PrintMatrix(int[,] matrix, string name)
+    {
+        Console.WriteLine($"\n{name}:");
+        int rows = matrix.GetLength(0);
+        int cols = matrix.GetLength(1);
+
+        
+        Console.Write("   ");
+        for (int j = 0; j < cols; j++)
+        {
+            Console.Write($"{j,-3}");
+        }
+        Console.WriteLine();
+
+        for (int i = 0; i < rows; i++)
+        {
+            Console.Write($"{i}: ");
+            for (int j = 0; j < cols; j++)
+            {
+                
+                string value = matrix[i, j].ToString();
+                if (matrix[i, j] >= 0) value = " " + value;
+                Console.Write($"{value,-3}");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    public static void Main()
+    {
+        Console.Write("Введите размер матрицы: ");
+        int size = Convert.ToInt32(Console.ReadLine());
+
+        int[,] G = new int[size, size];
+        Random rnd = new Random();
+
+        
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (i == j)
+                {
+                    G[i, j] = 0; 
+                }
+                else
+                {
+                    
+                    int value = rnd.Next(0, 2);
+                    G[i, j] = value;
+                }
+            }
+        }
+
+        PrintMatrix(G, "Матрица смежности ориентированного графа G");
+
+        Console.WriteLine($"\nКоличество дуг: {CountEdges(G)}");
+
+        int[,] incidenceMatrix = BuildIncidenceMatrix(G);
+        PrintMatrix(incidenceMatrix, "Матрица инцидентности ориентированного графа");
+
+        int graphSize = incidenceMatrix.GetLength(1);
+        Console.WriteLine($"\nРазмер графа G (по матрице инцидентности): {graphSize} дуг");
+
+        
+     
+    }
+}
