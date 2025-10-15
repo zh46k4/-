@@ -1,0 +1,124 @@
+using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
+
+class TreeNode
+{
+    public int Data { get; set; }
+    public TreeNode Left { get; set; }
+    public TreeNode Right { get; set; }
+
+    public TreeNode(int data)
+    {
+        Data = data;
+        Left = null;
+        Right = null;
+    }
+}
+class Tree
+{
+    public TreeNode Root;
+    public int count = 0;
+    public Tree()
+    {
+        Root = null;
+    }
+
+    public void Add(int data)
+    {
+        Root = AddRecursive(Root, data);
+    }
+
+    private TreeNode AddRecursive(TreeNode node, int data)
+    {
+
+
+        if (node == null)
+        {
+            return new TreeNode(data);
+        }
+
+        if (data < node.Data)
+        {
+            node.Left = AddRecursive(node.Left, data);
+        }
+        else if (data >= node.Data)
+        {
+            node.Right = AddRecursive(node.Right, data);
+        }
+        //else
+        //{
+        //    Console.WriteLine("Такое значение уже есть");
+        //}
+
+        return node;
+    }
+    public void PrintTree()
+    {
+        PrintTreeRecursive(Root, 0);
+        Console.WriteLine();
+    }
+
+    private void PrintTreeRecursive(TreeNode node, int level)
+    {
+        if (node == null) return;
+
+        // Сначала выводим правое поддерево
+        PrintTreeRecursive(node.Right, level + 1);
+
+        // Затем текущий узел
+        Console.WriteLine($"{new string(' ', level * 3)}{node.Data}");
+
+        // Затем левое поддерево
+        PrintTreeRecursive(node.Left, level + 1);
+    }
+
+    public int Find(TreeNode current, int data)
+    {
+
+        if (current == null) return count;
+        if (current.Data == data) count++;
+
+        if (data >= current.Data && current.Right != null)
+        {
+            Find(current.Right, data);
+        }
+        if (data <= current.Data && current.Right != null)
+        {
+            Find(current.Left, data);
+        }
+        return count;
+    }
+
+}
+
+class Program
+{
+
+    public static void Main()
+    {
+
+
+        Tree tree = new Tree();
+        int[] nums = { 8, 3, 10, 1, 6, 14, 8, 7, 13 };
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            Console.WriteLine("Добовляем число: " + nums[i]);
+            tree.Add(nums[i]);
+        }
+        Console.WriteLine("Дерерво:");
+        tree.PrintTree();
+
+        Console.WriteLine("\n ВВедите значение для поиска: ");
+        int data = Convert.ToInt32(Console.ReadLine());
+        tree.count = 0;
+
+        int result = tree.Find(tree.Root, data);
+        Console.WriteLine("Число вхождений:   " + result);
+
+    }
+
+
+
+}
