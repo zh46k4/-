@@ -1,0 +1,151 @@
+﻿class proekt
+{
+    static bool[] visitors;
+    static bool[] visitorsAdj;
+
+    public static int[,] CreateMatr()
+    {
+        Console.WriteLine("Введите размер матрицы: ");
+        int size = Convert.ToInt32(Console.ReadLine());
+        int[,] G = new int[size, size];
+        Random rnd = new Random();
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = i; j < size; j++)
+            {
+                if (i == j)
+                {
+                    G[i, j] = 0;
+                }
+                else
+                {
+                    int value = rnd.Next(0, 2);
+                    G[i, j] = value;
+                    G[j, i] = value;
+                }
+            }
+        }
+
+        PrintMatr(G);
+        return G;
+    }
+
+    public static void PrintMatr(int[,] matr)
+    {
+        for (int i = 0; i < matr.GetLength(0); i++)
+        {
+            for (int j = 0; j < matr.GetLength(1); j++)
+            {
+                Console.Write(matr[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    public static List<int>[] MatrixToAdjList(int[,] matrix)
+    {
+        int size = matrix.GetLength(0);
+        List<int>[] adjList = new List<int>[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            adjList[i] = new List<int>();
+            for (int j = 0; j < size; j++)
+            {
+                if (matrix[i, j] == 1)
+                {
+                    adjList[i].Add(j);
+                }
+            }
+        }
+
+        Console.WriteLine("\nСписки смежности:");
+        for (int i = 0; i < size; i++)
+        {
+            Console.Write($"Вершина {i}: ");
+            foreach (var neighbor in adjList[i])
+            {
+                Console.Write(neighbor + " ");
+            }
+            Console.WriteLine();
+        }
+
+        return adjList;
+    }
+
+    static void DFS_AdjList(List<int>[] adjList, int currentVertex)
+    {
+        visitorsAdj[currentVertex] = true;
+        Console.WriteLine(currentVertex + " ");
+
+        foreach (var neighbor in adjList[currentVertex])
+        {
+            if (!visitorsAdj[neighbor])
+            {
+                DFS_AdjList(adjList, neighbor);
+            }
+        }
+        Console.WriteLine("вернулись в " + currentVertex);
+    }
+
+    public static void Main()
+    {
+        int[,] graph = CreateMatr();
+
+        visitors = new bool[graph.GetLength(0)];
+        Console.WriteLine("\nОбход в глубину (матрица смежности):");
+        DFS(graph, 0);
+
+        List<int>[] adjList = MatrixToAdjList(graph);
+        visitorsAdj = new bool[graph.GetLength(0)];
+        Console.WriteLine("\nОбход в глубину (списки смежности):");
+        DFS_AdjList(adjList, 0);
+
+        Console.WriteLine("\nНерекурсивный обход (матрица):");
+        DFSWithStack(graph, 0);
+    }
+
+    static void DFS(int[,] G, int currentVisit)
+    {
+        visitors[currentVisit] = true;
+        Console.WriteLine(currentVisit + " ");
+
+        for (int i = 0; i < G.GetLength(0); i++)
+        {
+            if (G[currentVisit, i] == 1 && visitors[i] == false)
+            {
+                DFS(G, i);
+            }
+        }
+        Console.WriteLine("вернулись в " + currentVisit);
+    }
+
+    static void DFSWithStack(int[,] graph, int startVertex)
+    {
+        int verticesCount = graph.GetLength(0);
+        bool[] visited = new bool[verticesCount];
+        Stack<int> stack = new Stack<int>();
+
+        stack.Push(startVertex);
+
+        while (stack.Count > 0)
+        {
+            int currentVertex = stack.Pop();
+
+            if (!visited[currentVertex])
+            {
+                visited[currentVertex] = true;
+                Console.WriteLine($"Посетили вершину: {currentVertex}");
+
+                for (int neighbor = verticesCount - 1; neighbor >= 0; neighbor--)
+                {
+                    if (graph[currentVertex, neighbor] == 1 && !visited[neighbor])
+                    {
+                        Console.WriteLine($"  Добавили в стек: {neighbor}");
+                        stack.Push(neighbor);
+                    }
+                }
+            }
+        }
+    }
+}
