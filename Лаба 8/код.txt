@@ -1,0 +1,359 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("=== СРАВНЕНИЕ ОБХОДА В ШИРИНУ ДЛЯ ОРИЕНТИРОВАННОГО ГРАФА ===\n");
+
+        int n = 6;
+        int[,] adjacencyMatrix = GenerateDirectedAdjacencyMatrix(n);
+
+        Console.WriteLine("Матрица смежности (ориентированный граф):");
+        PrintMatrix(adjacencyMatrix);
+        Console.WriteLine();
+
+        List<List<int>> adjacencyList = ConvertToAdjacencyList(adjacencyMatrix);
+
+        Console.WriteLine("Список смежности (ориентированный граф):");
+        PrintAdjacencyList(adjacencyList);
+        Console.WriteLine();
+
+        // Выбор начальной вершины
+        int startVertex = GetStartVertex(n);
+
+        // Сравнение времени выполнения
+        Console.WriteLine("=== СРАВНЕНИЕ ВРЕМЕНИ ВЫПОЛНЕНИЯ ===");
+        Console.WriteLine($"Начальная вершина: {startVertex + 1}\n");
+
+        // Замер времени для матрицы смежности
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+        BFS_Matrix(adjacencyMatrix, startVertex);
+        stopwatch.Stop();
+        long matrixTime = stopwatch.ElapsedMilliseconds;
+
+        // Замер времени для списка смежности
+        stopwatch.Restart();
+        BFS_AdjacencyList(adjacencyList, startVertex);
+        stopwatch.Stop();
+        long listTime = stopwatch.ElapsedMilliseconds;
+
+        Console.WriteLine($"\nВремя выполнения:");
+        Console.WriteLine($"Матрица смежности: {matrixTime} мс");
+        Console.WriteLine($"Список смежности: {listTime} мс");
+        Console.WriteLine($"Разница: {Math.Abs(matrixTime - listTime)} мс");
+
+        if (matrixTime < listTime)
+            Console.WriteLine("Матрица смежности быстрее");
+        else if (matrixTime > listTime)
+            Console.WriteLine("Список смежности быстрее");
+        else
+            Console.WriteLine("Время выполнения одинаково");
+
+        // Дополнительная информация об ориентированном графе
+        Console.WriteLine($"\nПлотность графа: {CalculateGraphDensity(adjacencyMatrix):F2}");
+        Console.WriteLine($"Количество рёбер: {CountEdges(adjacencyMatrix)}");
+    }
+
+    static int GetStartVertex(int maxVertex)
+    {
+        while (true)
+        {
+            Console.Write($"Введите начальную вершину (1-{maxVertex}): ");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int vertex))
+            {
+                if (vertex >= 1 && vertex <= maxVertex)
+                {
+                    return vertex - 1; // Преобразуем в 0-based индекс
+                }
+            }
+
+            Console.WriteLine($"Неверный ввод! Введите число от 1 до {maxVertex}.");
+        }
+    }
+
+    static int[,] GenerateDirectedAdjacencyMatrix(int size)
+    {
+        Random rand = new Random();
+        int[,] matrix = new int[size, size];
+
+        // Для ориентированного графа рёбра могут быть направленными
+        // Генерируем рёбра независимо для каждой пары (i,j)
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                // Не допускаем петли (i != j) и генерируем ребро с вероятностью 30%
+                if (i != j && rand.NextDouble() < 0.3)
+                {
+                    matrix[i, j] = 1;
+                    // Для ориентированного графа НЕ устанавливаем matrix[j, i] = 1
+                }
+            }
+        }
+        return matrix;
+    }
+
+    static void PrintMatrix(int[,] matrix)
+    {
+        int size = matrix.GetLength(0);
+
+        Console.Write("   ");
+        for (int i = 0; i < size; i++)
+        {
+            Console.Write($"{i + 1} ");
+        }
+        Console.WriteLine();
+
+        for (int i = 0; i < size; i++)
+        {
+            Console.Write($"{i + 1}: ");
+            for (int j = 0; j < size; j++)
+            {
+                Console.Write($"{matrix[i, j]} ");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    public static List<List<int>> ConvertToAdjacencyList(int[,] matrix)
+    {
+        int size = matrix.GetLength(0);
+        List<List<int>> adjacencyList = new List<List<int>>();
+
+        for (int i = 0; i < size; i++)
+        {
+            List<int> neighbors = new List<int>();
+
+            for (int j = 0; j < size; j++)
+            {
+                if (matrix[i, j] == 1)
+                {
+                    neighbors.Add(j);
+                }
+            }
+
+            adjacencyList.Add(neighbors);
+        }
+
+        return adjacencyList;
+    }
+
+    static void PrintAdjacencyList(List<List<int>> adjacencyList)
+    {
+        for (int i = 0; i < adjacencyList.Count; i++)
+        {
+            Console.Write($"Вершина {i + 1} -> ");
+
+            if (adjacencyList[i].Count > 0)
+            {
+                foreach (int neighbor in adjacencyList[i])
+                {
+                    Console.Write($"{neighbor + 1} ");
+                }
+            }
+            else
+            {
+                Console.Write("нет исходящих рёбер");
+            }
+
+            Console.WriteLine();
+        }
+    }
+
+    // Обход в ширину для матрицы смежности (ориентированный граф)
+    public static void BFS_Matrix(int[,] graph, int startVertex)
+    {
+        int size = graph.GetLength(0);
+        bool[] visited = new bool[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            visited[i] = false;
+        }
+
+        Console.Write("Порядок обхода (матрица): ");
+
+        // Начинаем обход с указанной вершины
+        if (!visited[startVertex])
+        {
+            BFS_Matrix_Traversal(graph, startVertex, visited);
+        }
+
+        // Дополнительно обходим оставшиеся компоненты связности
+        // В ориентированном графе это особенно важно, так как из startVertex могут быть недостижимы некоторые вершины
+        for (int i = 0; i < size; i++)
+        {
+            if (!visited[i])
+            {
+                BFS_Matrix_Traversal(graph, i, visited);
+            }
+        }
+        Console.WriteLine();
+    }
+
+    static void BFS_Matrix_Traversal(int[,] graph, int startVertex, bool[] visited)
+    {
+        Queue<int> queue = new Queue<int>();
+
+        queue.Enqueue(startVertex);
+        visited[startVertex] = true;
+
+        while (queue.Count > 0)
+        {
+            int currentVertex = queue.Dequeue();
+            Console.Write($"{currentVertex + 1} ");
+
+            // Для ориентированного графа проверяем только исходящие рёбра
+            for (int i = 0; i < graph.GetLength(0); i++)
+            {
+                // Если есть ребро из currentVertex в i и вершина i не посещена
+                if (graph[currentVertex, i] == 1 && !visited[i])
+                {
+                    queue.Enqueue(i);
+                    visited[i] = true;
+                }
+            }
+        }
+    }
+
+    // Обход в ширину для списка смежности (ориентированный граф)
+    static void BFS_AdjacencyList(List<List<int>> adjacencyList, int startVertex)
+    {
+        int size = adjacencyList.Count;
+        bool[] visited = new bool[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            visited[i] = false;
+        }
+
+        Console.Write("Порядок обхода (список): ");
+
+        // Начинаем обход с указанной вершины
+        if (!visited[startVertex])
+        {
+            BFS_AdjacencyList_Traversal(adjacencyList, startVertex, visited);
+        }
+
+        // Дополнительно обходим оставшиеся компоненты связности
+        for (int i = 0; i < size; i++)
+        {
+            if (!visited[i])
+            {
+                BFS_AdjacencyList_Traversal(adjacencyList, i, visited);
+            }
+        }
+        Console.WriteLine();
+    }
+
+    static void BFS_AdjacencyList_Traversal(List<List<int>> adjacencyList, int startVertex, bool[] visited)
+    {
+        Queue<int> queue = new Queue<int>();
+
+        queue.Enqueue(startVertex);
+        visited[startVertex] = true;
+
+        while (queue.Count > 0)
+        {
+            int currentVertex = queue.Dequeue();
+            Console.Write($"{currentVertex + 1} ");
+
+            // Для ориентированного графа перебираем только соседей, достижимых из текущей вершины
+            foreach (int neighbor in adjacencyList[currentVertex])
+            {
+                if (!visited[neighbor])
+                {
+                    queue.Enqueue(neighbor);
+                    visited[neighbor] = true;
+                }
+            }
+        }
+    }
+
+    // Вспомогательные методы для анализа графа
+    static double CalculateGraphDensity(int[,] matrix)
+    {
+        int n = matrix.GetLength(0);
+        int edgeCount = CountEdges(matrix);
+
+        // Для ориентированного графа максимальное количество рёбер = n*(n-1)
+        int maxPossibleEdges = n * (n - 1);
+        return (double)edgeCount / maxPossibleEdges;
+    }
+
+    static int CountEdges(int[,] matrix)
+    {
+        int edgeCount = 0;
+        int n = matrix.GetLength(0);
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (matrix[i, j] == 1)
+                {
+                    edgeCount++;
+                }
+            }
+        }
+
+        return edgeCount;
+    }
+
+    // Дополнительный метод для демонстрации достижимости вершин
+    public static void AnalyzeReachability(int[,] graph, int startVertex)
+    {
+        int size = graph.GetLength(0);
+        bool[] visited = new bool[size];
+        Queue<int> queue = new Queue<int>();
+        List<int> reachableVertices = new List<int>();
+
+        queue.Enqueue(startVertex);
+        visited[startVertex] = true;
+        reachableVertices.Add(startVertex);
+
+        while (queue.Count > 0)
+        {
+            int currentVertex = queue.Dequeue();
+
+            for (int i = 0; i < size; i++)
+            {
+                if (graph[currentVertex, i] == 1 && !visited[i])
+                {
+                    queue.Enqueue(i);
+                    visited[i] = true;
+                    reachableVertices.Add(i);
+                }
+            }
+        }
+
+        Console.WriteLine($"\nДостижимые из вершины {startVertex + 1}:");
+        foreach (int vertex in reachableVertices)
+        {
+            Console.Write($"{vertex + 1} ");
+        }
+        Console.WriteLine();
+
+        Console.WriteLine($"Недостижимые из вершины {startVertex + 1}:");
+        bool allReachable = true;
+        for (int i = 0; i < size; i++)
+        {
+            if (!visited[i])
+            {
+                Console.Write($"{i + 1} ");
+                allReachable = false;
+            }
+        }
+
+        if (allReachable)
+            Console.WriteLine("все вершины достижимы");
+        else
+            Console.WriteLine();
+    }
+}
