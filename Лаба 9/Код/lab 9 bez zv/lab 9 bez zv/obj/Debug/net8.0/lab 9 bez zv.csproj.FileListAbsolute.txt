@@ -1,0 +1,14 @@
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\bin\Debug\net8.0\lab 9 bez zv.exe
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\bin\Debug\net8.0\lab 9 bez zv.deps.json
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\bin\Debug\net8.0\lab 9 bez zv.runtimeconfig.json
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\bin\Debug\net8.0\lab 9 bez zv.dll
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\bin\Debug\net8.0\lab 9 bez zv.pdb
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\lab 9 bez zv.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\lab 9 bez zv.AssemblyInfoInputs.cache
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\lab 9 bez zv.AssemblyInfo.cs
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\lab 9 bez zv.csproj.CoreCompileInputs.cache
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\lab 9 bez zv.dll
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\refint\lab 9 bez zv.dll
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\lab 9 bez zv.pdb
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\lab 9 bez zv.genruntimeconfig.cache
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\lab 9 bez zv\lab 9 bez zv\obj\Debug\net8.0\ref\lab 9 bez zv.dll

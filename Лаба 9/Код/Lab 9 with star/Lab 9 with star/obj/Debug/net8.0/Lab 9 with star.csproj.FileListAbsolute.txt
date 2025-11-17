@@ -1,0 +1,14 @@
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\bin\Debug\net8.0\Lab 9 with star.exe
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\bin\Debug\net8.0\Lab 9 with star.deps.json
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\bin\Debug\net8.0\Lab 9 with star.runtimeconfig.json
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\bin\Debug\net8.0\Lab 9 with star.dll
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\bin\Debug\net8.0\Lab 9 with star.pdb
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\Lab 9 with star.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\Lab 9 with star.AssemblyInfoInputs.cache
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\Lab 9 with star.AssemblyInfo.cs
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\Lab 9 with star.csproj.CoreCompileInputs.cache
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\Lab 9 with star.dll
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\refint\Lab 9 with star.dll
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\Lab 9 with star.pdb
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\Lab 9 with star.genruntimeconfig.cache
+C:\Users\Compluhter\OneDrive\Desktop\Лаба 9\Код\Lab 9 with star\Lab 9 with star\obj\Debug\net8.0\ref\Lab 9 with star.dll
