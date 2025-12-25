@@ -1,0 +1,14 @@
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\bin\Debug\net8.0\Курсовая.exe
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\bin\Debug\net8.0\Курсовая.deps.json
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\bin\Debug\net8.0\Курсовая.runtimeconfig.json
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\bin\Debug\net8.0\Курсовая.dll
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\bin\Debug\net8.0\Курсовая.pdb
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\Курсовая.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\Курсовая.AssemblyInfoInputs.cache
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\Курсовая.AssemblyInfo.cs
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\Курсовая.csproj.CoreCompileInputs.cache
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\Курсовая.dll
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\refint\Курсовая.dll
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\Курсовая.pdb
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\Курсовая.genruntimeconfig.cache
+C:\Users\Compluhter\OneDrive\Desktop\Курсовая\Курсовая\obj\Debug\net8.0\ref\Курсовая.dll
